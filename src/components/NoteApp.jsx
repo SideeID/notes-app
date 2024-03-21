@@ -1,6 +1,6 @@
 import React from "react";
 import NoteList from "./NoteList";
-import { getData } from '../utils/data'
+import { getInitialData } from '../utils/data';
 import Navbar from "./Navbar";
 import AddButton from "./common/AddButton";
 
@@ -8,8 +8,8 @@ class NoteApp extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            notes: getData(),
-            filteredNotes: getData()
+            notes: getInitialData(),
+            filteredNotes: getInitialData()
         };
         this.onHandleDelete = this.onHandleDelete.bind(this);
         this.onHandleSearch = this.onHandleSearch.bind(this);
