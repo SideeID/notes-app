@@ -17,5 +17,4 @@ function NoteItem({ title, body, id, archived, onDelete, onArchive }) {
     );
 }
 
-
 export default NoteItem
