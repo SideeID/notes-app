@@ -1,0 +1,314 @@
+.note-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+}
+
+.note-list__empty {
+  text-align: center;
+  font-size: 24px;
+  color: #666;
+}
+
+.note-app h2 {
+  font-size: 32px;
+  margin: 0;
+  font-family: "JetBrains Mono",monospace;
+  color: #1e1b1b;
+  display: flex;
+  justify-content: center;
+}
+
+.note-item {
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  box-shadow: rgba(240, 46, 170, 0.4) 5px 5px, rgba(240, 46, 170, 0.3) 10px 10px, rgba(240, 46, 170, 0.2) 15px 15px, rgba(240, 46, 170, 0.1) 20px 20px, rgba(240, 46, 170, 0.05) 25px 25px;
+  padding: 20px;
+  width: calc(
+    25% - 20px
+  );
+  max-width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-wrap: break-word;
+}
+
+.note-item__title {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.note-item__body {
+  font-size: 16px;
+  color: #666;
+  overflow: hidden;
+  word-wrap: break-word;
+}
+
+.note-container__add {
+  display: flex;
+  padding: 20px;
+}
+
+.note-item__navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #1e1b1b;
+  padding: 20px 20px;
+  box-shadow: rgba(240, 46, 170, 0.4) 5px 5px, rgba(240, 46, 170, 0.3) 10px 10px, rgba(240, 46, 170, 0.2) 15px 15px, rgba(240, 46, 170, 0.1) 20px 20px, rgba(240, 46, 170, 0.05) 25px 25px;
+}
+
+.note-item__navbar h1 {
+  margin: 0;
+  font-family: "JetBrains Mono",monospace;
+  font-size: 24px;
+}
+
+.note-item__navbar input[type="text"] {
+  padding: 10px 20px;
+  border-radius: 5px;
+  color: #272727;
+}
+
+.note-item__navbar input[type="text"]::placeholder {
+  color: #3d3d3d;
+}
+
+.note-item__delete {
+  background-color: #f4e1e1;
+  border-radius: 3px;
+  border: 1px solid #c77a7a;
+  box-shadow: rgba(255, 255, 255, 0.7) 0 1px 0 0 inset;
+  box-sizing: border-box;
+  color: #9d3939;
+  cursor: pointer;
+  display: inline-block;
+  font-family: -apple-system,system-ui,"Segoe UI","Liberation Sans",sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.15385;
+  margin: 0;
+  outline: none;
+  padding: 8px .8em;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: baseline;
+  white-space: nowrap;
+}
+
+.note-item__delete:hover,
+.note-item__delete:focus {
+  background-color: #eab3b3;
+  color: #772c2c;
+}
+
+.note-item__delete:focus {
+  box-shadow: 0 0 0 4px rgba(255, 0, 0, 0.15);
+}
+
+.note-item__delete:active {
+  background-color: #e4a0a0;
+  box-shadow: none;
+  color: #772c2c;
+}
+
+.note-item__archive {
+  background-color: #e4f4e1;
+  border-radius: 3px;
+  border: 1px solid #7ac77e;
+  box-shadow: rgba(255, 255, 255, 0.7) 0 1px 0 0 inset;
+  box-sizing: border-box;
+  color: #439d39;
+  cursor: pointer;
+  display: inline-block;
+  font-family: -apple-system,system-ui,"Segoe UI","Liberation Sans",sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.15385;
+  margin: 0;
+  outline: none;
+  padding: 8px .8em;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: baseline;
+  white-space: nowrap;
+}
+
+.note-item__archive:hover,
+.note-item__archive:focus {
+  background-color: #bfeab3;
+  color: #31772c;
+}
+
+.note-item__archive:focus {
+  box-shadow: 0 0 0 4px rgba(30, 255, 0, 0.15);
+}
+
+.note-item__archive:active {
+  background-color: #e4a0a0;
+  box-shadow: none;
+  color: #37772c;
+}
+
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 1rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+  z-index: 999;
+  width: 80vw;
+  max-width: 400px;
+}
+
+.note-item__add {
+  align-items: center;
+  appearance: none;
+  background-color: #FCFCFD;
+  border-radius: 4px;
+  border-width: 0;
+  box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,rgba(45, 35, 66, 0.3) 0 7px 13px -3px,#D6D6E7 0 -3px 0 inset;
+  box-sizing: border-box;
+  color: #36395A;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: "JetBrains Mono",monospace;
+  height: 40px;
+  justify-content: center;
+  line-height: 1;
+  list-style: none;
+  overflow: hidden;
+  padding-left: 15px;
+  padding-right: 15px;
+  position: relative;
+  text-align: left;
+  text-decoration: none;
+  transition: box-shadow .15s,transform .15s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  will-change: box-shadow,transform;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.note-item__add:focus {
+  box-shadow: #D6D6E7 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+}
+
+.note-item__add:hover {
+  box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+  transform: translateY(3px);
+}
+
+.note-item__add:active {
+  box-shadow: #D6D6E7 0 3px 7px inset;
+  transform: translateY(2px);
+}
+
+.popup h2 {
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.popup label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #666;
+}
+
+.popup input {
+  width: calc(100% - 1rem);
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.popup textarea {
+  width: calc(100% - 1rem);
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.popup span {
+  color: #666;
+  font-size: 0.8rem;
+  margin-bottom: 0.5rem;
+  display: flex;
+  justify-content: end;
+}
+
+.container-add-button {
+    display: flex;
+    gap: 1rem;
+}
+
+.popup button {
+  background-color: #e1ecf4;
+  border-radius: 3px;
+  border: 1px solid #7aa7c7;
+  box-shadow: rgba(255, 255, 255, .7) 0 1px 0 0 inset;
+  box-sizing: border-box;
+  color: #39739d;
+  cursor: pointer;
+  display: inline-block;
+  font-family: -apple-system,system-ui,"Segoe UI","Liberation Sans",sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.15385;
+  margin: 0;
+  outline: none;
+  padding: 8px .8em;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: baseline;
+  white-space: nowrap;
+}
+
+.popup button:hover,
+.popup button:focus {
+  background-color: #b3d3ea;
+  color: #2c5777;
+}
+
+.popup button:focus {
+  box-shadow: 0 0 0 4px rgba(0, 149, 255, .15);
+}
+
+.popup button:active {
+  background-color: #a0c7e4;
+  box-shadow: none;
+  color: #2c5777;
+}
+
+
+@media screen and (max-width: 600px) {
+  .note-item {
+    width: calc(
+      100% - 20px
+    );
+  }
+}
