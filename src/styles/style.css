@@ -302,6 +302,18 @@
   color: #2c5777;
 }
 
+.note-item__footer {
+  border-top: dashed 1px #000000;
+  text-align: center;
+  color: rgb(0, 0, 0);
+  bottom: 0;
+  width: 100%;
+  font-size: small;
+}
+
+.btn-bookshelf button i {
+  pointer-events: none;
+}
 
 @media screen and (max-width: 600px) {
   .note-item {

@@ -3,6 +3,7 @@ import NoteList from "./NoteList";
 import { getInitialData } from '../utils/data';
 import Navbar from "./Navbar";
 import AddButton from "./common/AddButton";
+import NoteFooter from "./NoteFooter";
 
 class NoteApp extends React.Component {
     constructor(props) {
@@ -55,6 +56,7 @@ class NoteApp extends React.Component {
                 <NoteList notes={activeNotes} onDelete={this.onHandleDelete} onArchive={this.handleArchiveNote} />
                 <h2>Catatan Diarsipkan</h2>
                 <NoteList notes={archivedNotes} onDelete={this.onHandleDelete} onArchive={this.handleArchiveNote} />
+                <NoteFooter />
             </div>
         );
     }
