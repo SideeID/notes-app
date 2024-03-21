@@ -175,6 +175,63 @@
 }
 
 .note-item__add {
+  background-color: #3DD1E7;
+  border: 0 solid #E5E7EB;
+  box-sizing: border-box;
+  color: #000000;
+  display: flex;
+  font-family: ui-sans-serif,system-ui,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+  font-size: 1rem;
+  font-weight: 700;
+  justify-content: center;
+  line-height: 1.75rem;
+  padding: .75rem 1.65rem;
+  position: relative;
+  text-align: center;
+  text-decoration: none #000000 solid;
+  text-decoration-thickness: auto;
+  width: 100%;
+  max-width: 120px;
+  position: relative;
+  cursor: pointer;
+  transform: rotate(-2deg);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+
+  position: fixed;
+  bottom: 40px;
+  right: 20px;
+  z-index: 999;
+}
+
+.note-item__add:focus {
+  outline: 0;
+}
+
+.note-item__add:after {
+  content: '';
+  position: absolute;
+  border: 1px solid #000000;
+  bottom: 4px;
+  left: 4px;
+  width: calc(100% - 1px);
+  height: calc(100% - 1px);
+}
+
+.note-item__add:hover:after {
+  bottom: 2px;
+  left: 2px;
+}
+
+@media (min-width: 768px) {
+  .note-item__add {
+    padding: .75rem 3rem;
+    font-size: 1.25rem;
+  }
+}
+
+.note-item__add1 {
   align-items: center;
   appearance: none;
   background-color: #FCFCFD;
@@ -204,18 +261,23 @@
   will-change: box-shadow,transform;
   font-size: 15px;
   font-weight: bold;
+
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 999;
 }
 
-.note-item__add:focus {
+.note-item__add1:focus {
   box-shadow: #D6D6E7 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
 }
 
-.note-item__add:hover {
+.note-item__add1:hover {
   box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
   transform: translateY(3px);
 }
 
-.note-item__add:active {
+.note-item__add1:active {
   box-shadow: #D6D6E7 0 3px 7px inset;
   transform: translateY(2px);
 }
