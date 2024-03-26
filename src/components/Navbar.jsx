@@ -1,21 +1,30 @@
 import React from "react";
+import { Link, useLocation } from "react-router-dom";
+import PropTypes from 'prop-types';
 
-function Navbar({ onSearch }) {
-    const handleSearch = (e) => {
-        const searchTerm = e.target.value;
-        onSearch(searchTerm);
-    };
+function Navbar({ keyword, onSearch }) {
+    const location = useLocation();
 
     return (
         <nav className="note-item__navbar">
-            <h1>Notes App</h1>
+            <Link to="/">
+                <h1>Notes App</h1>
+            </Link>
             <input
+                className="search-bar"
                 type="text"
                 placeholder="Cari berdasarkan judul..."
-                onChange={handleSearch}
+                value={keyword}
+                onChange={(e) => onSearch(e.target.value)}
             />
         </nav>
     );
 }
+
+Navbar.propTypes = {
+    keyword: PropTypes.string,
+    onSearch: PropTypes.func.isRequired
+};
+
 
 export default Navbar;
