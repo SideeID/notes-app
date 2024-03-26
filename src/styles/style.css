@@ -50,7 +50,8 @@
 
 .note-container__add {
   display: flex;
-  padding: 20px;
+  /* justify-content: center; */
+
 }
 
 .note-item__navbar {
@@ -202,7 +203,7 @@
   touch-action: manipulation;
 
   position: fixed;
-  bottom: 40px;
+  bottom: 35px;
   right: 20px;
   z-index: 999;
 }
@@ -331,7 +332,88 @@
   margin-top: auto;
 }
 
-.popup button {
+
+.note-item__footer {
+  border-top: dashed 1px #000000;
+  text-align: center;
+  color: rgb(0, 0, 0);
+  bottom: 0;
+  width: 100%;
+  font-size: small;
+}
+
+.btn-bookshelf button i {
+  pointer-events: none;
+}
+
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  padding: 2rem 2rem 0.5rem;
+}
+
+.archived_icon {
+  color: #333;
+  font-size: 24px;
+  transition: color 0.3s ease;
+}
+
+.navigation a {
+  font-family: "JetBrains Mono",monospace;
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.navigation a:hover .archived_icon {
+  color: #007bff;
+}
+
+
+.add-note-form {
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  font-family: "JetBrains Mono",monospace;
+}
+
+.add-note-form h2 {
+  margin-bottom: 10px;
+}
+
+.add-note-form label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.add-note-form span {
+  color: #666;
+  font-size: 0.8rem;
+  margin-bottom: 0.5rem;
+  display: flex;
+  justify-content: end;
+}
+
+.add-note-form input[type="text"],
+.add-note-form textarea {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.add-note-form .container-add-button {
+  text-align: right;
+}
+
+.add-note-form .container-add-button button {
   background-color: #e1ecf4;
   border-radius: 3px;
   border: 1px solid #7aa7c7;
@@ -340,7 +422,7 @@
   color: #39739d;
   cursor: pointer;
   display: inline-block;
-  font-family: -apple-system,system-ui,"Segoe UI","Liberation Sans",sans-serif;
+  font-family: "JetBrains Mono",monospace;
   font-size: 13px;
   font-weight: 400;
   line-height: 1.15385;
@@ -357,34 +439,63 @@
   white-space: nowrap;
 }
 
-.popup button:hover,
-.popup button:focus {
+.add-note-form .container-add-button button:hover,
+.add-note-form .container-add-button button:focus {
   background-color: #b3d3ea;
   color: #2c5777;
 }
 
-.popup button:focus {
+.add-note-form .container-add-button button:focus {
   box-shadow: 0 0 0 4px rgba(0, 149, 255, .15);
 }
 
-.popup button:active {
-  background-color: #a0c7e4;
-  box-shadow: none;
-  color: #2c5777;
+.link-no-decoration {
+  text-decoration: none;
+  color: inherit;
 }
 
-.note-item__footer {
-  border-top: dashed 1px #000000;
+.note-detail {
+  max-width: 80%;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.note-detail h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.note-detail p {
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.note-detail p:last-child {
+  margin-top: 10px;
+  font-style: italic;
+}
+
+.not-found-page {
+  display: flex;
+  font-family: "JetBrains Mono",monospace;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.not-found-page h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.not-found-page p {
+  font-size: 1.2rem;
   text-align: center;
-  color: rgb(0, 0, 0);
-  bottom: 0;
-  width: 100%;
-  font-size: small;
 }
 
-.btn-bookshelf button i {
-  pointer-events: none;
-}
+
 
 @media screen and (max-width: 600px) {
   .note-item {
