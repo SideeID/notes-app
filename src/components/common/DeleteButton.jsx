@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 
 function DeleteButton({ onDelete, id }) {
     return (
@@ -6,6 +7,11 @@ function DeleteButton({ onDelete, id }) {
         Hapus
       </button>
     );
-  }
+}
+
+DeleteButton.propTypes = {
+    onDelete: PropTypes.func.isRequired,
+    id: PropTypes.string.isRequired
+};
 
 export default DeleteButton
