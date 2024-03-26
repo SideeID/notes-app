@@ -97,10 +97,9 @@ class NoteApp extends React.Component {
                 <AddButton onAdd={this.handleAddNote} />
 
                 <Routes>
-                    <Route path="/" element={<NoteList notes={activeNotes} onDelete={this.onHandleDelete} onArchive={this.handleArchiveNote} />} />
+                    <Route path="/" element={<NoteList notes={activeNotes} onDelete={this.onHandleDelete} onArchive={this.handleArchiveNote} onUnarchive={this.handleUnarchiveNote} />} />
                     <Route path="/add" element={<AddNoteForm onAdd={this.handleAddNote} />} />
-      
-                    <Route path="/archived" element={<NoteList notes={archivedNotes} onDelete={this.onHandleDelete} onArchive={this.handleUnarchiveNote} />} />
+                    <Route path="/archived" element={<NoteList notes={archivedNotes} onDelete={this.onHandleDelete} onArchive={this.handleUnarchiveNote} onUnarchive={this.handleUnarchiveNote} />} />
                     <Route path="/note/:id" element={<NoteDetail notes={this.state.notes} onDelete={this.onHandleDelete} onArchive={this.handleArchiveNote} onUnarchive={this.handleUnarchiveNote} />} />
                     <Route path="*" element={<NotFoundPage />} />
                 </Routes>

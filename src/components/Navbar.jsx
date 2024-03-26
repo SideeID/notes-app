@@ -7,7 +7,7 @@ function Navbar({ keyword, onSearch }) {
 
     return (
         <nav className="note-item__navbar">
-            <Link to="/">
+            <Link className="link-no-decoration" to="/">
                 <h1>Notes App</h1>
             </Link>
             <input

@@ -1,12 +1,5 @@
 let notes = [
   {
-    id: notes-0,
-    title: "Amalan",
-    body: "Kalau sudah Bulan Ramadhan jangan putus-putus baca: \"Asyhaduanha llaaha llallah astaghfirullah nas'alukal jannata wa na'udzubika minannar, Allahumma innaka afuwwun tuhibbul afwa fafu anna ya kariim\". Ini bacaan dari mulai sekarang sampai nanti Idul Fitri jangan dilepas walaupun sehari sekali dibaca, Karena ini bacaan orang-orang shaleh terdahulu bacaanya Habib Husein Bin abu Bakar Alaydrus, Bacaanya Habib Abdullah Bin Muhsin Al Athas, Dan bacaanya Wali-Wali Songo. Ajarkan keluarga kita agar sampai kepada orang-orang yang kita cintai.",
-    createdAt: "2022-04-14T04:27:34.572Z",
-    archived: false,
-  },
-  {
     id: 'notes-1',
     title: 'Babel',
     body: 'Babel merupakan tools open-source yang digunakan untuk mengubah sintaks ECMAScript 2015+ menjadi sintaks yang didukung oleh JavaScript engine versi lama. Babel sering dipakai ketika kita menggunakan sintaks terbaru termasuk sintaks JSX.',
