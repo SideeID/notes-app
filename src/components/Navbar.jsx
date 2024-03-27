@@ -3,7 +3,6 @@ import { Link, useLocation } from "react-router-dom";
 import PropTypes from 'prop-types';
 
 function Navbar({ keyword, onSearch }) {
-    const location = useLocation();
 
     return (
         <nav className="note-item__navbar">
