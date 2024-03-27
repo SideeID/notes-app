@@ -8,6 +8,7 @@ import AddNoteForm from "./AddNote";
 import NoteFooter from "./NoteFooter";
 import NoteDetail from "./NodeDetail";
 import NotFoundPage from "./NotFound";
+import PropTypes from 'prop-types'
 import { getAllNotes, addNote, deleteNote, archiveNote, unarchiveNote } from "../utils/local-data";
 
 function NoteAppWrapper() {
@@ -35,6 +36,17 @@ class NoteApp extends React.Component {
         this.handleAddNote = this.handleAddNote.bind(this);
         this.handleArchiveNote = this.handleArchiveNote.bind(this);
         this.handleUnarchiveNote = this.handleUnarchiveNote.bind(this);
+    }
+    
+    componentDidMount() {
+        this.onHandleSearch(this.state.keyword);
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.defaultKeyword !== prevProps.defaultKeyword) {
+            this.onHandleSearch(this.props.defaultKeyword)
+            this.setState({ keyword: this.props.defaultKeyword })
+        }
     }
 
     onHandleDelete(id) {
@@ -83,7 +95,7 @@ class NoteApp extends React.Component {
 
         return (
             <div className="note-app">
-                <Navbar onSearch={this.onHandleSearch} />
+                <Navbar keyword={this.state.keyword} onSearch={this.onHandleSearch} />
                 <div className="navigation">
                     <Link to="/">
                         <FaHome className="archived_icon" />
@@ -107,6 +119,11 @@ class NoteApp extends React.Component {
             </div>
         );
     }
+}
+
+NoteApp.propTypes = {
+    defaultKeyword: PropTypes.string,
+    onKeywordChange: PropTypes.func.isRequired
 }
 
 export default NoteAppWrapper;
