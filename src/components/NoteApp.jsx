@@ -58,12 +58,14 @@ class NoteApp extends React.Component {
     }
 
     onHandleSearch(searchTerm) {
+        const search = searchTerm ? searchTerm.toLowerCase() : '';
         const filteredNotes = this.state.notes.filter((note) =>
-            note.title.toLowerCase().includes(searchTerm.toLowerCase())
+            note.title && note.title.toLowerCase().includes(search)
         );
         this.setState({ filteredNotes, keyword: searchTerm });
         this.props.onKeywordChange(searchTerm);
     }
+    
 
     handleAddNote(newNote) {
         addNote(newNote);
