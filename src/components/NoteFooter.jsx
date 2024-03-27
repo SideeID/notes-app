@@ -1,6 +1,6 @@
 import React from "react";
 
-function NoteFooter({ children }) {
+function NoteFooter() {
     return (
         <div className="note-item__footer">
             <p>
