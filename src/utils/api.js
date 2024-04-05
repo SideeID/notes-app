@@ -58,7 +58,6 @@ async function getUserLogged() {
     }
 
     return { error: false, data: responseJson.data };
-
 }
 
 function getAccessToken() {
@@ -164,8 +163,6 @@ async function deleteNote(id) {
     }
 
     return { error: false };
-
-
 }
 
 export {
