@@ -1,131 +1,225 @@
-import React from "react";
-import { FaArchive, FaHome } from 'react-icons/fa';
-import { useSearchParams, Routes, Route, Link } from "react-router-dom"; // Tambahkan Link dari react-router-dom
-import NoteList from "./NoteList";
-import Navbar from "./Navbar";
-import AddButton from "./common/AddButton";
-import AddNoteForm from "./AddNote";
-import NoteFooter from "./NoteFooter";
-import NoteDetail from "./NodeDetail";
-import NotFoundPage from "./NotFound";
-import PropTypes from 'prop-types'
-import { getAllNotes, addNote, deleteNote, archiveNote, unarchiveNote } from "../utils/local-data";
+import React, { useState, useEffect } from 'react';
+import NoteList from './NoteList';
+import Navbar from './Navbar';
+import AddButton from './common/AddButton';
+import AddNoteForm from './AddNote';
+import NoteFooter from './NoteFooter';
+import NoteDetail from './NodeDetail';
+import NotFoundPage from './NotFound';
+import LoginPage from '../pages/LoginPages';
+import RegisterPage from '../pages/RegisterPage';
+import { Routes, Route, useLocation } from 'react-router-dom';
+import { ThemeProvider } from './ThemeContext';
+import { LanguageProvider } from './LanguageContext';
+import Navigation from './NavigationIcon';
+import {
+    getUserLogged,
+    addNote,
+    getAllNotes,
+    getArchivedNotes,
+    archiveNote,
+    unarchiveNote,
+    deleteNote,
+    setAccessToken,
+} from '../utils/api';
 
-function NoteAppWrapper() {
-    const [searchParams, setSearchParams] = useSearchParams();
+function NoteApp() {
+    const [notes, setNotes] = useState([]);
+    const [filteredNotes, setFilteredNotes] = useState([]);
+    const [keyword, setKeyword] = useState('');
+    const [authedUser, setAuthedUser] = useState(null);
+    const [initializing, setInitializing] = useState(true);
+    const [loading, setLoading] = useState(false);
+    const location = useLocation();
 
-    const keyword = searchParams.get("search");
-
-    const handleKeywordChange = (keyword) => {
-        setSearchParams({ search: keyword });
+    const handleSearch = async (keyword) => {
+        setKeyword(keyword);
+        const search = keyword ? keyword.toLowerCase() : '';
+        const filteredNotes = notes.filter(
+            (note) => note.title && note.title.toLowerCase().includes(search)
+        );
+        setFilteredNotes(filteredNotes);
     };
 
-    return <NoteApp defaultKeyword={keyword} onKeywordChange={handleKeywordChange} />;
-}
+    const handleDelete = async (id) => {
+        await deleteNote(id);
+        fetchNotes();
+    };
 
-class NoteApp extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            notes: getAllNotes(),
-            filteredNotes: getAllNotes(),
-            keyword: props.defaultKeyword || "",
-        };
-        this.onHandleDelete = this.onHandleDelete.bind(this);
-        this.onHandleSearch = this.onHandleSearch.bind(this);
-        this.handleAddNote = this.handleAddNote.bind(this);
-        this.handleArchiveNote = this.handleArchiveNote.bind(this);
-        this.handleUnarchiveNote = this.handleUnarchiveNote.bind(this);
-    }
-    
-    componentDidMount() {
-        this.onHandleSearch(this.state.keyword);
-    }
+    const handleAddNote = async (newNote) => {
+        await addNote(newNote);
+        fetchNotes();
+    };
 
-    componentDidUpdate(prevProps) {
-        if (this.props.defaultKeyword !== prevProps.defaultKeyword) {
-            this.onHandleSearch(this.props.defaultKeyword)
-            this.setState({ keyword: this.props.defaultKeyword })
+    const handleArchiveNote = async (id) => {
+        await archiveNote(id);
+        fetchNotes();
+    };
+
+    const handleUnarchiveNote = async (id) => {
+        await unarchiveNote(id);
+        fetchNotes();
+    };
+
+    const fetchNotes = async () => {
+        try {
+            setLoading(true);
+            const { data } = await getAllNotes();
+            setNotes(data);
+            setFilteredNotes(data);
+        } catch (error) {
+            console.error('Error fetching notes:', error);
+        } finally {
+            setLoading(false);
         }
+    };
+
+    const fetchArchivedNotes = async () => {
+        try {
+            setLoading(true);
+            const { data } = await getArchivedNotes();
+            setNotes(data);
+            setFilteredNotes(data);
+        } catch (error) {
+            console.error('Error fetching archived notes:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleLogout = () => {
+        setAuthedUser(null);
+        setAccessToken(null);
+    };
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                setLoading(true);
+                const { data } = await getUserLogged();
+                if (data) {
+                    setAuthedUser(data);
+                } else {
+                    setAuthedUser(null);
+                }
+                setInitializing(false);
+                setLoading(false);
+            } catch (error) {
+                console.error('Error fetching user data:', error);
+                setInitializing(false);
+                setLoading(false);
+            }
+        };
+
+        fetchData();
+        fetchNotes();
+    }, []);
+
+    useEffect(() => {
+        if (location.pathname === '/') {
+            fetchNotes();
+        } else if (location.pathname === '/archived') {
+            fetchArchivedNotes();
+        }
+    }, [location.pathname]);
+
+    if (initializing || loading) {
+        return <div>Loading...</div>;
     }
 
-    onHandleDelete(id) {
-        deleteNote(id);
-        this.setState({
-            notes: getAllNotes(),
-            filteredNotes: getAllNotes(),
-        });
-    }
-
-    onHandleSearch(searchTerm) {
-        const search = searchTerm ? searchTerm.toLowerCase() : '';
-        const filteredNotes = this.state.notes.filter((note) =>
-            note.title && note.title.toLowerCase().includes(search)
-        );
-        this.setState({ filteredNotes, keyword: searchTerm });
-        this.props.onKeywordChange(searchTerm);
-    }
-    
-
-    handleAddNote(newNote) {
-        addNote(newNote);
-        this.setState({
-            notes: getAllNotes(),
-            filteredNotes: getAllNotes(),
-        });
-    }
-
-    handleArchiveNote(id) {
-        archiveNote(id);
-        this.setState({
-            notes: getAllNotes(),
-            filteredNotes: getAllNotes()
-        });
-    }
-
-    handleUnarchiveNote(id) {
-        unarchiveNote(id);
-        this.setState({
-            notes: getAllNotes(),
-            filteredNotes: getAllNotes()
-        });
-    }
-
-    render() {
-        const activeNotes = this.state.filteredNotes.filter((note) => !note.archived);
-        const archivedNotes = this.state.filteredNotes.filter((note) => note.archived);
-
+    if (!authedUser) {
         return (
-            <div className="note-app">
-                <Navbar keyword={this.state.keyword} onSearch={this.onHandleSearch} />
-                <div className="navigation">
-                    <Link to="/">
-                        <FaHome className="archived_icon" />
-                        <span>Aktif</span>
-                    </Link>
-                    <Link to="/archived">
-                        <FaArchive className="archived_icon" />
-                        <span>Arsip</span>
-                    </Link>
-                </div>
-                <AddButton onAdd={this.handleAddNote} />
-
-                <Routes>
-                    <Route path="/" element={<NoteList notes={activeNotes} onDelete={this.onHandleDelete} onArchive={this.handleArchiveNote} onUnarchive={this.handleUnarchiveNote} />} />
-                    <Route path="/add" element={<AddNoteForm onAdd={this.handleAddNote} />} />
-                    <Route path="/archived" element={<NoteList notes={archivedNotes} onDelete={this.onHandleDelete} onArchive={this.handleUnarchiveNote} onUnarchive={this.handleUnarchiveNote} />} />
-                    <Route path="/note/:id" element={<NoteDetail notes={this.state.notes} onDelete={this.onHandleDelete} onArchive={this.handleArchiveNote} onUnarchive={this.handleUnarchiveNote} />} />
-                    <Route path="*" element={<NotFoundPage />} />
-                </Routes>
-                <NoteFooter />
+            <div className='note-app'>
+                <header className='login'>
+                    <h2>Notes App</h2>
+                </header>
+                <main>
+                    <Routes>
+                        <Route
+                            path='/*'
+                            element={
+                                <LoginPage
+                                    loginSuccess={(data) => setAuthedUser(data)}
+                                />
+                            }
+                        />
+                        <Route path='/register' element={<RegisterPage />} />
+                    </Routes>
+                </main>
             </div>
         );
     }
+
+    return (
+        <LanguageProvider>
+            <ThemeProvider>
+                <div className='note-app'>
+                    <Navbar
+                        keyword={keyword}
+                        onSearch={handleSearch}
+                        logout={handleLogout}
+                        authedUser={authedUser}
+                    />
+                    <Navigation />
+                    <AddButton onAdd={handleAddNote} />
+                    {loading && <div>Loading...</div>}
+                    <Routes>
+                        <Route
+                            path='/'
+                            element={
+                                <NoteList
+                                    notes={
+                                        filteredNotes &&
+                                        filteredNotes.filter(
+                                            (note) => !note.archived
+                                        )
+                                    }
+                                    onDelete={handleDelete}
+                                    onArchive={handleArchiveNote}
+                                    onUnarchive={handleUnarchiveNote}
+                                    keyword={keyword}
+                                />
+                            }
+                        />
+                        <Route
+                            path='/add'
+                            element={<AddNoteForm onAdd={handleAddNote} />}
+                        />
+                        <Route
+                            path='/archived'
+                            element={
+                                <NoteList
+                                    notes={
+                                        filteredNotes &&
+                                        filteredNotes.filter(
+                                            (note) => note.archived
+                                        )
+                                    }
+                                    onDelete={handleDelete}
+                                    onArchive={handleUnarchiveNote}
+                                    onUnarchive={handleUnarchiveNote}
+                                    keyword={keyword}
+                                />
+                            }
+                        />
+                        <Route
+                            path='/note/:id'
+                            element={
+                                <NoteDetail
+                                    notes={notes}
+                                    onDelete={handleDelete}
+                                    onArchive={handleArchiveNote}
+                                    onUnarchive={handleUnarchiveNote}
+                                />
+                            }
+                        />
+                        <Route path='*' element={<NotFoundPage />} />
+                    </Routes>
+                    <NoteFooter />
+                </div>
+            </ThemeProvider>
+        </LanguageProvider>
+    );
 }
 
-NoteApp.propTypes = {
-    defaultKeyword: PropTypes.string,
-    onKeywordChange: PropTypes.func.isRequired
-}
-
-export default NoteAppWrapper;
+export default NoteApp;
