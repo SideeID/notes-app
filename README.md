@@ -9,3 +9,4 @@ Aplikasi Catatan Pribadi adalah sebuah aplikasi web sederhana yang dibangun meng
 - Menghapus catatan.
 - Fitur pencarian catatan.
 - Limit karakter pada input judul catatan.
+- Login dan registrasi akun
